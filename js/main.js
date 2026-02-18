@@ -42,7 +42,7 @@ function renderIndivSongs(file, songcont) {
         let name_artist = filename.split(" - ");
         console.log(name_artist);
         playlistCont.innerHTML = `
-        <img src="coding.png" alt="Song-Cover">
+        <img src="default.png" alt="Song-Cover">
         <div class="playlist-text">
             <span>${name_artist[0]}</span>
             <span class="playlist-subtext">${name_artist[1]}</span>
@@ -52,7 +52,7 @@ function renderIndivSongs(file, songcont) {
     } else {
         artistPresent = false;
         playlistCont.innerHTML = `
-        <img src="coding.png" alt="Song-Cover">
+        <img src="default.png" alt="Song-Cover">
         <div class="playlist-text">
             <span>${filename}</span>
             <span class="playlist-subtext">Loading...</span>
