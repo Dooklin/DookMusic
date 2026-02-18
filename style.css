@@ -91,6 +91,10 @@ main {
   box-shadow: none !important;
 }
 
+#tutplaceholder {
+  height: 100px;
+}
+
 .playlist-cont img {
   width: 100px;
   height: 100px;
@@ -210,6 +214,10 @@ tr:hover .settings-dots {
   opacity: 1;
 }
 
+.songs-cont span {
+  font-size: 1.2em;
+}
+
 footer {
   position: absolute;
   bottom: 0;
@@ -278,8 +286,14 @@ footer {
 
 #settings-control {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5px;
+}
+
+#settings-control span {
+  font-size: 1.5em;
 }
 
 .placeholder {
@@ -287,4 +301,22 @@ footer {
   width: 100%;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tutbutn {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 0.5em;
+  color: white;
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.1em;
+  padding: 7.5px 20px;
+  transition: background-color 0.1s ease-out;
+}
+.tutbutn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
