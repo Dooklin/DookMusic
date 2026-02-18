@@ -90,7 +90,7 @@ function addToQueue(currentNr, currentName, currentDur, file) {
         <td>${currentNr}</td>
         <td>${currentName}</td>
         <td>${currentDur}</td>
-        <td><img src="ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+        <td><img src="svgs/ThreeDots.svg" alt="Settings" class="settings-dots"></td>
     `;
 
     tbody.appendChild(tr)
@@ -130,6 +130,8 @@ function playByIndex(index) {
     /* middle time */
     document.querySelector("#player-control span:nth-child(3)")
         .textContent = song.duration;
+    
+    playimg.src = "svgs/pause.svg";
 }
 
 
@@ -144,12 +146,15 @@ volumeSlider.addEventListener("input", function(){
 
 
 let playbtn = document.getElementById("playBtn");
+let playimg = document.getElementById("playimg");
 
 playbtn.addEventListener("click", function() {
     if(audioPlayer.paused) {
         audioPlayer.play();
+        playimg.src = "svgs/pause.svg";
     } else {
         audioPlayer.pause();
+        playimg.src = "svgs/play.svg";
     }
 });
 
@@ -159,18 +164,21 @@ let prevBtn = document.getElementById("prevBtn");
 nextBtn.addEventListener("click", function() {
     if(currentIndex < queue.length -1) {
         playByIndex(currentIndex + 1);
+        playimg.src = "svgs/pause.svg";
     }
 });
 
 prevBtn.addEventListener("click", function() {
     if(currentIndex > 0) {
         playByIndex(currentIndex - 1);
+        playimg.src = "svgs/pause.svg";
     }
 });
 
 audioPlayer.addEventListener("ended", function() {
     if(currentIndex < queue.length - 1) {
         playByIndex(currentIndex + 1);
+        playimg.src = "svgs/pause.svg";
     }
 });
 

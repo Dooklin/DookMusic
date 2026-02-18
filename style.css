@@ -249,12 +249,18 @@ footer {
 .player-control-semicont {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 15px;
 }
 
 .player-control-semicont span {
   width: 2em;
   margin: 0 auto;
+}
+
+.player-control-semicont button {
+  background: none;
+  outline: none;
+  border: none;
 }
 
 
