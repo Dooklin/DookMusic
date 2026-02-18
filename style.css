@@ -210,10 +210,6 @@ tr:hover .settings-dots {
   opacity: 1;
 }
 
-tr:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
 footer {
   position: absolute;
   bottom: 0;

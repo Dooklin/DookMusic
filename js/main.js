@@ -34,18 +34,36 @@ function renderIndivSongs(file, songcont) {
     let playlistCont = document.createElement("div");
     playlistCont.classList.add("playlist-cont");
 
+    let filename = file.name.replace(/\.[^/.]+$/, "");
 
-    /* sometime with duration / artist :/ */
-    playlistCont.innerHTML = `
+    let artistPresent;
+    if (filename.includes(" - ")) {
+        artistPresent = true;
+        let name_artist = filename.split(" - ");
+        console.log(name_artist);
+        playlistCont.innerHTML = `
         <img src="coding.png" alt="Song-Cover">
         <div class="playlist-text">
-            <span>${file.name.replace(/\.[^/.]+$/, "")}</span>
+            <span>${name_artist[0]}</span>
+            <span class="playlist-subtext">${name_artist[1]}</span>
+        </div>
+        `;
+
+    } else {
+        artistPresent = false;
+        playlistCont.innerHTML = `
+        <img src="coding.png" alt="Song-Cover">
+        <div class="playlist-text">
+            <span>${filename}</span>
             <span class="playlist-subtext">Loading...</span>
         </div>
-    `;
+        `;
+    }
 
     songcont.appendChild(playlistCont);
 
+
+    
     /* needed to get duration of file */
     const tempAudio = new Audio();
     tempAudio.src = URL.createObjectURL(file);
@@ -54,11 +72,14 @@ function renderIndivSongs(file, songcont) {
         const durationF = formatTime(tempAudio.duration);
         file.songDuration = formatTime(tempAudio.duration);
 
-        playlistCont.querySelector(".playlist-subtext")
-            .textContent = durationF;
-        
+        if(!artistPresent) {
+            playlistCont.querySelector(".playlist-subtext")
+                .textContent = durationF;
+        }
         URL.revokeObjectURL(tempAudio.src);
     });
+    
+    
 
 
     playlistCont.addEventListener("click", function(){
