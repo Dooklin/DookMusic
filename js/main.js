@@ -226,6 +226,18 @@ progressBar.addEventListener("click", function(e) {
     audioPlayer.currentTime = percent * audioPlayer.duration;
 });
 
+document.addEventListener("keypress", function(e){
+    if(e.key == " ") {
+        if(audioPlayer.paused) {
+            audioPlayer.play();
+            playimg.src = "svgs/pause.svg";
+        } else {
+            audioPlayer.pause();
+            playimg.src = "svgs/play.svg";
+        }
+    }
+});
+
 
 function formatTime(seconds) {
     let mins = Math.floor(seconds / 60);
