@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="coding.png" type="image/x-icon">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+  <meta name="author" content="Dooklin">
+  <title>DookMusic</title>
+</head>
+<body>
+  <main>
+    <div class="main-conts">
+      <div class="cont-heading">
+        <span>Your Songs</span>
+        <button id="scanBtn">Add New</button>
+      </div>
+      <div id="song-cont">
+      <div class="playlist-cont">
+        <img src="coding.png" alt="Song-Cover">
+
+        <div class="playlist-text">
+          <span><div class="placeholder"></div></span>
+          <span class="playlist-subtext"><div class="placeholder"></div></span>
+        </div>
+      </div>
+
+      <div class="playlist-cont">
+        <img src="coding.png" alt="Song-Cover">
+
+        <div class="playlist-text">
+          <span><div class="placeholder"></div></span>
+          <span class="playlist-subtext"><div class="placeholder"></div></span>
+        </div>
+      </div>
+
+      </div>
+
+      <div class="playlist-cont playlist-nohover">
+        <!-- Placeholder Spacer-->
+      </div>
+    </div>
+
+
+
+    <div class="main-conts middle" id="middle-cont">
+      <div class="cont-heading">
+        <span>Your Queue</span>
+      </div>
+
+      <div class="songs-cont" id="queue-cont">
+        <table>
+          <thead>
+            <th>Nr</th>
+            <th>Title</th>
+            <th>Duration</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><img src="ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+            </tr>
+
+            <tr>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><img src="ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+            </tr>
+
+            <tr>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><img src="ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+            </tr>
+
+            <tr>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><img src="ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+            </tr>
+
+            <tr>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><img src="ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+            </tr>
+
+            <tr>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><img src="ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+            </tr>
+
+            <tr>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><img src="ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+            </tr>
+
+            <tr>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><div class="placeholder"></div></td>
+              <td><img src="ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+
+      <div class="playlist-cont playlist-nohover">
+        <!-- Placeholder Spacer-->
+      </div>
+
+    </div>
+
+
+
+    <div class="main-conts" id="tutorial">
+      <div class="cont-heading">
+        <span>How ??</span>
+      </div>
+
+      <div class="songs-cont" >
+        <span>Click on that shi, <br>select songs, <br>click on the songs to place them in the queue, <br> bottom bar is self explanatory yo</span>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <span onclick="hide();">Hide ts (this shit) Panel</span>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <span>accidental reload? might fix that in the future</span>
+        <br>
+        <br>
+        <span>the below doesnt work yet but its due</span>
+        <br>
+        <br>
+        <span>To see the artists name on the left instead of time, you can name your files "Name - Artist" like in Duvet from Bôa -> "Duvet - Bôa"</span>
+        
+      </div>
+      <div class="playlist-cont playlist-nohover">
+        <!-- Placeholder Spacer-->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="bottom-panel" id="current-song">
+
+      <div class="playlist-cont playlist-nohover" id="bottom-right">
+        <img src="coding.png" alt="Song-Cover">
+
+        <div class="playlist-text">
+          <span><div class="placeholder"></div></span>
+          <span class="playlist-subtext"><div class="placeholder"></div></span>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="bottom-panel bottom-middle" id="player-control">
+      <div class="player-control-semicont">
+        <div class="player-control-semicont">
+          <button id="prevBtn">⏮</button>
+          <button id="playBtn">⏯</button>
+          <button id="nextBtn">⏭</button>
+        </div>
+      </div>
+      <div class="player-control-semicont">
+        <span>3:17</span>
+        <div id="progress-bar">
+          <div id="progress-bar-progress"></div>
+        </div>
+        <span>4:23</span>
+      </div>
+    </div>
+    <div class="bottom-panel" id="settings-control">
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.2">
+    </div>
+  </footer>
+
+  <input type="file" name="musicfiles" id="musicfiles" hidden multiple>
+
+  <script src="js/hidetutorial.js"></script>
+  <script src="js/scan.js"></script>
+</body>
+</html>
