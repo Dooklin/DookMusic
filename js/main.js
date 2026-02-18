@@ -244,3 +244,8 @@ function formatTime(seconds) {
     let secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
+
+function mock() {
+    let mockbox = document.getElementById("mockbox");
+    mockbox.innerHTML = "The other one...";
+}
