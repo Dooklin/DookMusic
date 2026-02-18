@@ -15,7 +15,9 @@ scanBtn.addEventListener("click", function(){
 
 musicfiles.addEventListener("change", function(e) {
     let files = Array.from(e.target.files)
-      .filter(file => file.type.startsWith("audio/"));
+    
+    let audioFiles = files.filter(f => f.type.startsWith("audio/"));
+    let imageFiles = files.filter(f => f.type.startsWith("image/"));
 
     
     /* delete previous entries in songscont, leave title & placeholder */
@@ -24,35 +26,51 @@ musicfiles.addEventListener("change", function(e) {
     tbody.innerHTML = "";
     queuecounter = 0
 
+    let covermap = {};
 
-    files.forEach(file => {
-        renderIndivSongs(file, songcont);
+    imageFiles.forEach(img => {
+        let cleanname = img.name.replace(/\.[^/.]+$/, "");
+        covermap[cleanname] = img;
+    });
+
+    audioFiles.forEach(file => {
+        renderIndivSongs(file, songcont, covermap);
     });
 });
 
-function renderIndivSongs(file, songcont) {
+function renderIndivSongs(file, songcont, covermap) {
     let playlistCont = document.createElement("div");
     playlistCont.classList.add("playlist-cont");
 
     let filename = file.name.replace(/\.[^/.]+$/, "");
+    let title = filename;
+    let artist = "";
+
+    let coverURL = "default.png";
+
+    if (covermap[filename]) {
+        coverURL = URL.createObjectURL(covermap[filename]);
+    }
 
     let artistPresent;
     if (filename.includes(" - ")) {
         artistPresent = true;
-        let name_artist = filename.split(" - ");
-        console.log(name_artist);
+        let parts = filename.split(" - ");
+        title = parts[0];
+        artist = parts[1];
+        
         playlistCont.innerHTML = `
-        <img src="default.png" alt="Song-Cover">
+        <img src="${coverURL}" alt="Song-Cover">
         <div class="playlist-text">
-            <span>${name_artist[0]}</span>
-            <span class="playlist-subtext">${name_artist[1]}</span>
+            <span>${title}</span>
+            <span class="playlist-subtext">${artist}</span>
         </div>
         `;
 
     } else {
         artistPresent = false;
         playlistCont.innerHTML = `
-        <img src="default.png" alt="Song-Cover">
+        <img src="${coverURL}" alt="Song-Cover">
         <div class="playlist-text">
             <span>${filename}</span>
             <span class="playlist-subtext">Loading...</span>
@@ -61,8 +79,6 @@ function renderIndivSongs(file, songcont) {
     }
 
     songcont.appendChild(playlistCont);
-
-
     
     /* needed to get duration of file */
     const tempAudio = new Audio();
@@ -87,7 +103,7 @@ function renderIndivSongs(file, songcont) {
         let currentNr = queuecounter;
         let currentName = file.name.replace(/\.[^/.]+$/, "");
         let currentDur = file.songDuration || "--:--";;
-        addToQueue(currentNr, currentName, currentDur, file);
+        addToQueue(currentNr, title || currentName, currentDur, file, artist, coverURL);
     });
 }
 
@@ -97,11 +113,13 @@ let queuecont = document.getElementById("queue-cont");
 let tbody = document.querySelector("tbody");
 let queuecounter = 0;
 
-function addToQueue(currentNr, currentName, currentDur, file) {
+function addToQueue(currentNr, currentName, currentDur, file, artist, coverURL) {
     queue.push({
-        name: currentName,
+        title: currentName,
+        artist,
         duration: currentDur,
-        file: file
+        file,
+        coverURL
     });
 
     let index = queue.length - 1;
@@ -142,11 +160,13 @@ function playByIndex(index) {
         queueRows[currentIndex].classList.add("now-playing");
     }
 
-    /* bottom left */
-    document.querySelector("#current-song .playlist-text span")
-        .textContent = song.name;
-    document.querySelector("#current-song .playlist-text span:nth-child(2)")
-        .textContent = song.duration;
+    document.querySelector("#currentcover").src = song.coverURL;
+
+    document.querySelector("#bottom-right .playlist-text span:first-child")
+        .textContent = song.title;
+
+    document.querySelector("#bottom-right .playlist-text span:last-child")
+        .textContent = song.artist || song.duration;
     
     /* middle time */
     document.querySelector("#player-control span:nth-child(3)")
@@ -226,8 +246,9 @@ progressBar.addEventListener("click", function(e) {
     audioPlayer.currentTime = percent * audioPlayer.duration;
 });
 
-document.addEventListener("keypress", function(e){
-    if(e.key == " ") {
+document.addEventListener("keydown", function(e){
+    if(e.code == "Space") {
+        e.preventDefault();
         if(audioPlayer.paused) {
             audioPlayer.play();
             playimg.src = "svgs/pause.svg";
