@@ -122,23 +122,28 @@ function addToQueue(currentNr, currentName, currentDur, file, artist, coverURL) 
         coverURL
     });
 
-    let index = queue.length - 1;
-
-    let tr = document.createElement("tr");
+    const tr = document.createElement("tr");
     tr.innerHTML = `
-        <td>${currentNr}</td>
+        <td></td>
         <td>${currentName}</td>
         <td>${currentDur}</td>
-        <td><img src="svgs/ThreeDots.svg" alt="Settings" class="settings-dots"></td>
+        <td class="row-actions">
+            <button data-action="up">▲</button>
+            <button data-action="remove">✖</button>
+            <button data-action="down">▼</button>
+        </td>
     `;
 
-    tbody.appendChild(tr)
-
+    tbody.appendChild(tr);
     queueRows.push(tr);
 
-    tr.addEventListener("click", function(){
-        playByIndex(index);
+    // play on row click
+    tr.addEventListener("click", function () {
+        const dynamicIndex = Number(tr.dataset.index);
+        playByIndex(dynamicIndex);
     });
+
+    refreshRowIndices();
 }
 
 let currentFile = null;
@@ -154,7 +159,7 @@ function playByIndex(index) {
     audioPlayer.src = fileURL;
     audioPlayer.play();
 
-    queueRows.forEach(row => row.classList.remove("now-playing"));
+    updateNowPlayingHighlight();
 
     if (queueRows[currentIndex]) {
         queueRows[currentIndex].classList.add("now-playing");
@@ -269,4 +274,93 @@ function formatTime(seconds) {
 function mock() {
     let mockbox = document.getElementById("mockbox");
     mockbox.innerHTML = "The other one...";
+}
+
+tbody.addEventListener("click", function (e) {
+    const btn = e.target.closest("button[data-action]");
+    if (!btn) return;
+
+    e.stopPropagation();
+
+    const tr = btn.closest("tr");
+    const index = Number(tr.dataset.index);
+    const action = btn.dataset.action;
+
+    if (action === "up" && index > 0) {
+        swapQueue(index, index - 1);
+    }
+
+    if (action === "down" && index < queue.length - 1) {
+        swapQueue(index, index + 1);
+    }
+
+    if (action === "remove") {
+        removeFromQueue(index);
+    }
+});
+
+function swapQueue(i, j) {
+    if (i === j) return;
+
+    [queue[i], queue[j]] = [queue[j], queue[i]];
+
+    [queueRows[i], queueRows[j]] = [queueRows[j], queueRows[i]];
+
+    queueRows.forEach(row => tbody.appendChild(row));
+
+    if (currentIndex === i) {
+        currentIndex = j;
+    } else if (currentIndex === j) {
+        currentIndex = i;
+    }
+
+    refreshRowIndices();
+    updateNowPlayingHighlight();
+}
+
+function removeFromQueue(index) {
+    if (index < 0 || index >= queue.length) return;
+
+    const wasPlaying = index === currentIndex;
+
+    queue.splice(index, 1);
+
+    const removedRow = queueRows.splice(index, 1)[0];
+    if (removedRow) removedRow.remove();
+
+    if (wasPlaying) {
+        if (queue.length === 0) {
+            audioPlayer.pause();
+            currentIndex = -1;
+            updateNowPlayingHighlight();
+            return;
+        }
+
+        if (index >= queue.length) {
+            currentIndex = queue.length - 1;
+        } else {
+            currentIndex = index;
+        }
+
+        playByIndex(currentIndex);
+    }
+    else if (index < currentIndex) {
+        currentIndex--;
+    }
+
+    refreshRowIndices();
+    updateNowPlayingHighlight();
+}
+
+function updateNowPlayingHighlight() {
+    queueRows.forEach((row, i) => {
+        row.classList.toggle("now-playing", i === currentIndex);
+    });
+}
+
+function refreshRowIndices() {
+    queueRows.forEach((row, i) => {
+        row.dataset.index = i;
+        row.children[0].textContent = i + 1;
+    });
 }
