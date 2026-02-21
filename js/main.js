@@ -359,3 +359,8 @@ function refreshRowIndices() {
         row.children[0].textContent = i + 1;
     });
 }
+
+window.addEventListener("beforeunload", function (event) {
+  event.preventDefault();
+  event.returnValue = ""; 
+});
