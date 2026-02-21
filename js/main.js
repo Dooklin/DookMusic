@@ -271,11 +271,6 @@ function formatTime(seconds) {
     return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
 
-function mock() {
-    let mockbox = document.getElementById("mockbox");
-    mockbox.innerHTML = "The other one...";
-}
-
 tbody.addEventListener("click", function (e) {
     const btn = e.target.closest("button[data-action]");
     if (!btn) return;

@@ -5,3 +5,8 @@ function hide() {
     sidebar.style.display = "none";
     middleCont.style.width = "65%";
 }
+
+function mock() {
+    let mockbox = document.getElementById("mockbox");
+    mockbox.innerHTML = "The other one...";
+}
