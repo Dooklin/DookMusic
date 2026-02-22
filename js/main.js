@@ -1,4 +1,5 @@
 const audioPlayer = new Audio();
+window.audioPlayer = audioPlayer;
 
 let queue = [];
 let currentIndex = -1;
