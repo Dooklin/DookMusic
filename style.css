@@ -437,4 +437,12 @@ footer {
   .main-conts {
     width: 50% !important;
   }
+
+  .player-control-semicont:nth-child(2) {
+    width: 80vw;
+  }
+
+  #progress-bar {
+    width: 75vw;
+  }
 }
