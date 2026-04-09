@@ -432,4 +432,8 @@ footer {
   .songs-cont td {
     font-size: 1em;
   }
+
+  .main-conts {
+    width: 50% !important;
+  }
 }
