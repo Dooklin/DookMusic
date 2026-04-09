@@ -412,6 +412,14 @@ footer {
   }
 }
 
+#mobile-settings-control {
+  position: fixed;
+  top: 40px;
+  left: calc(50% - 80px);
+
+  display: none;
+}
+
 @media (max-width: 850px) {
   footer {
     justify-content: center;
@@ -422,6 +430,10 @@ footer {
 
   #settings-control {
     display: none;
+  }
+
+  #mobile-settings-control {
+    display: block;
   }
 }
 

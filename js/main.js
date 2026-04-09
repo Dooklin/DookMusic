@@ -158,6 +158,12 @@ volumeSlider.addEventListener("input", function () {
     audioPlayer.volume = this.value;
 });
 
+let volumeSliderMob = document.getElementById("mobile-settings-control");
+audioPlayer.volume = volumeSliderMob.value;
+volumeSliderMob.addEventListener("input", function () {
+    audioPlayer.volume = this.value;
+});
+
 /* play/pause */
 
 let playbtn = document.getElementById("playBtn");
