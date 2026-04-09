@@ -116,7 +116,8 @@ function addToQueue(currentName, currentDur, file, artist, coverURL) {
     tbody.appendChild(tr);
     queueRows.push(tr);
 
-    tr.addEventListener("click", function () {
+    tr.addEventListener("click", function (e) {
+        if (e.target.closest("button")) return;
         playByIndex(Number(tr.dataset.index));
     });
 
@@ -192,15 +193,15 @@ prevBtn.addEventListener("click", function () {
 });
 
 audioPlayer.addEventListener("ended", function () {
-    if (repeatOn) {
-        audioPlayer.currentTime = 0;
-        audioPlayer.play();
-        return;
-    }
     playNext();
 });
 
 function playNext() {
+    if (isShuffled) {
+        const randomIndex = Math.floor(Math.random() * queue.length);
+        playByIndex(randomIndex);
+        return;
+    }
     if (repeatOn && currentIndex === queue.length - 1) {
         playByIndex(0);
     } else if (currentIndex < queue.length - 1) {
@@ -248,33 +249,7 @@ let shuffleBtn = document.getElementById("shuffleBtn");
 shuffleBtn.addEventListener("click", function () {
     isShuffled = !isShuffled;
     shuffleBtn.classList.toggle("active", isShuffled);
-
-    if (isShuffled) {
-        shuffleQueue();
-    }
 });
-
-function shuffleQueue() {
-    const playingItem = queue[currentIndex];
-    const playingRow = queueRows[currentIndex];
-
-    for (let i = queue.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [queue[i], queue[j]] = [queue[j], queue[i]];
-        [queueRows[i], queueRows[j]] = [queueRows[j], queueRows[i]];
-    }
-
-    if (playingItem) {
-        const newIdx = queue.indexOf(playingItem);
-        [queue[0], queue[newIdx]] = [queue[newIdx], queue[0]];
-        [queueRows[0], queueRows[newIdx]] = [queueRows[newIdx], queueRows[0]];
-        currentIndex = 0;
-    }
-
-    queueRows.forEach(row => tbody.appendChild(row));
-    refreshRowIndices();
-    updateNowPlayingHighlight();
-}
 
 /* repeat */
 
