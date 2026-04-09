@@ -13,6 +13,7 @@ html body {
   font-weight: 500;
   font-style: normal;
   overflow: hidden;
+  background-color: black;
 }
 
 main {
