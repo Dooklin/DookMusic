@@ -14,6 +14,10 @@
   <title>DookMusic</title>
 </head>
 <body>
+  <div id="mobile-dot-cont">
+    <div id="left-dot"></div>
+    <div id="right-dot"></div>
+  </div>
   <main>
     <div class="main-conts">
       <div class="cont-heading">
@@ -58,7 +62,7 @@
           <thead>
             <th>Nr</th>
             <th>Title</th>
-            <th>Duration</th>
+            <th id="dur">Duration</th>
             <th></th>
           </thead>
           <tbody>
@@ -138,7 +142,7 @@
         
         <span>Click on</span>
 
-        <button class="tutbutn" id="scanBtn" onclick="mock();">Add New</button>
+        <button class="tutbutn" onclick="mock();">Add New</button>
         
         <span>to select your Songs from your file Explorer.</span>
         <br>
@@ -185,11 +189,11 @@
     
     <div class="bottom-panel bottom-middle" id="player-control">
       <div class="player-control-semicont">
-        <div class="player-control-semicont">
+          <button id="shuffleBtn">⇄</button>
           <button id="prevBtn"><img src="svgs/prev.svg" alt="Previous"></button>
           <button id="playBtn"><img src="svgs/play.svg" alt="Play" id="playimg"></button>
           <button id="nextBtn"><img src="svgs/next.svg" alt="Next"></button>
-        </div>
+          <button id="repeatBtn">⟳</button>
       </div>
       <div class="player-control-semicont">
         <span>3:17</span>
@@ -212,5 +216,6 @@
   <script src="js/hidetutorial.js"></script>
   <script src="js/main.js"></script>
   <script src="js/visualizer.js"></script>
+  <script src="js/mobile.js"></script>
 </body>
 </html>

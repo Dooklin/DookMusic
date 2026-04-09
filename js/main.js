@@ -145,6 +145,8 @@ function playByIndex(index) {
     document.querySelector("#player-control span:nth-child(3)").textContent = song.duration;
 
     playimg.src = "svgs/pause.svg";
+    /* goofi idea */
+    /*document.querySelector("main").style.backgroundImage = `url(${song.coverURL})`;*/
 }
 
 /* volume */

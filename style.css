@@ -12,6 +12,7 @@ html body {
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
+  overflow: hidden;
 }
 
 main {
@@ -265,6 +266,14 @@ footer {
   border: none;
 }
 
+#shuffleBtn, #repeatBtn {
+  font-size: 1.5em;
+  color: #fff;
+}
+
+#shuffleBtn.active, #repeatBtn.active {
+  color: var(--orange-hex);
+}
 
 #progress-bar {
   width: 35vw;
@@ -347,4 +356,80 @@ footer {
   height: 200px;
   pointer-events: none;
   z-index: 0;
+}
+
+#mobile-dot-cont {
+  display: none;
+  gap: 20px;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  top: 20px;
+}
+
+#left-dot, #right-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+#left-dot.active, #right-dot.active {
+  background-color: var(--orange-hex);
+}
+
+.main-conts {
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 1000px) {
+  #tutorial {
+    display: none;
+  }
+
+  #mobile-dot-cont {
+    display: flex;
+  }
+
+  html, body {
+    overflow: hidden;
+    width: 100vw;
+  }
+
+  main {
+    width: 200vw;
+    overflow: hidden;
+  }
+
+  footer {
+    position: fixed;
+    width: 100vw;
+  }
+
+  .main-conts {
+    width: 40%;
+  }
+}
+
+@media (max-width: 850px) {
+  footer {
+    justify-content: center;
+  }
+  #current-song {
+    display: none;
+  }
+
+  #settings-control {
+    display: none;
+  }
+}
+
+@media (max-width: 530px) {
+  .songs-cont th {
+    font-size: 1.1em;
+  }
+
+  .songs-cont td {
+    font-size: 1em;
+  }
 }
