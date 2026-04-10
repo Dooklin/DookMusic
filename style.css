@@ -74,6 +74,14 @@ main {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+#song-cont .playlist-cont:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+#song-cont .playlist-cont:last-child {
+  border-radius: 0 0 10px 10px;
+}
+
 .playlist-cont {
   display: flex;
   gap: 25px;
