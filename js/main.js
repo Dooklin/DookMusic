@@ -343,3 +343,24 @@ window.addEventListener("beforeunload", function (event) {
     event.preventDefault();
     event.returnValue = "";
 });
+
+/*
+maybe todo
+
+- full queue and how long for full queue duration
+- extra placeholder for both
+- background rgba 0 0 0 0.4 for cards and table?
+- volume slider, check for safari/chrome/firefox then chrome left 50%, firefox leave it with calc
+- if 3 line breaks at card then font smaller
+
+- if mp4 just get the audio?
+
+tests conclude
+
+Add all button
+Left rigtt swipe fix for apple
+Brighter currwnt poaying
+Exzra padding
+Toggle vistalizer?
+Di i ecen need a numbering
+*/

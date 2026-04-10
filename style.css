@@ -192,7 +192,7 @@ main {
     rgba(179, 85, 23, 0.05) 40%,
     transparent 100%
   );
-  box-shadow: inset 4px 0 0 var(--orange-hex);
+
 }
 
 .now-playing {
@@ -202,6 +202,7 @@ main {
     rgba(179, 85, 23, 0.05) 40%,
     transparent 100%
   );
+  box-shadow: inset 4px 0 0 var(--orange-hex);
 }
 
 .settings-dots {
@@ -274,6 +275,7 @@ footer {
 
 #shuffleBtn, #repeatBtn {
   font-size: 1.5em;
+  font-weight: 800;
   color: #fff;
 }
 
