@@ -96,7 +96,6 @@ main {
 
 .playlist-nohover {
   background: none !important;
-  background-color: none !important;
   box-shadow: none !important;
 }
 
@@ -401,6 +400,10 @@ footer {
   height: 20px;
 }
 
+.mobile-place {
+  display: none;
+}
+
 @media (max-width: 1000px) {
   #tutorial {
     display: none;
@@ -408,6 +411,10 @@ footer {
 
   #mobile-dot-cont {
     display: flex;
+  }
+
+  .mobile-place {
+    display: block;
   }
 
   html, body {
