@@ -404,6 +404,11 @@ footer {
   display: none;
 }
 
+#queue-duration {
+  width: 100%;
+  text-align: center;
+}
+
 @media (max-width: 1000px) {
   #tutorial {
     display: none;
@@ -435,13 +440,17 @@ footer {
   .main-conts {
     width: 40%;
   }
+
+  #mobile-settings-control {
+    display: block;
+  }
 }
 
 #mobile-settings-control {
-  width: 160px;
   position: fixed;
   top: 40px;
-  left: calc(50% - 80px);
+  left: 50%;
+  transform: translateX(-50%);
 
   display: none;
 }

@@ -33,9 +33,13 @@ let touchStartX = 0;
 const isMobile = () => window.matchMedia("(max-width: 1000px)").matches;
 
 main.addEventListener("touchstart", function(e) {
-  if (!isMobile()) return;
-  touchStartX = e.touches[0].clientX;
-});
+    if (!isMobile()) return;
+    touchStartX = e.touches[0].clientX;
+
+    if (currentWindow === 0 && touchStartX < 30) {
+        e.preventDefault();
+    }
+}, { passive: false });
 
 main.addEventListener("touchend", function(e) {
   if (!isMobile()) return;

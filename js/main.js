@@ -13,10 +13,16 @@ let scanBtn = document.getElementById("scanBtn");
 let musicfiles = document.getElementById("musicfiles");
 
 scanBtn.addEventListener("click", function () {
-    musicfiles.click();
+    if (scanBtn.textContent === "Add All") {
+        document.querySelectorAll("#song-cont .playlist-cont").forEach(card => card.click());
+    } else {
+        musicfiles.click();
+    }
 });
 
 musicfiles.addEventListener("change", function (e) {
+    scanBtn.textContent = "Add New";
+
     let files = Array.from(e.target.files);
 
     let audioFiles = files.filter(f => f.type.startsWith("audio/"));
@@ -38,6 +44,8 @@ musicfiles.addEventListener("change", function (e) {
     audioFiles.forEach(file => {
         renderIndivSongs(file, songcont, covermap);
     });
+
+    scanBtn.textContent = "Add All";
 });
 
 function renderIndivSongs(file, songcont, covermap) {
@@ -122,6 +130,7 @@ function addToQueue(currentName, currentDur, file, artist, coverURL) {
     });
 
     refreshRowIndices();
+    updateQueueDuration();
 }
 
 function playByIndex(index) {
@@ -292,6 +301,7 @@ function swapQueue(i, j) {
 
     refreshRowIndices();
     updateNowPlayingHighlight();
+    updateQueueDuration();
 }
 
 function removeFromQueue(index) {
@@ -318,6 +328,7 @@ function removeFromQueue(index) {
 
     refreshRowIndices();
     updateNowPlayingHighlight();
+    updateQueueDuration();
 }
 
 function updateNowPlayingHighlight() {
@@ -331,6 +342,16 @@ function refreshRowIndices() {
         row.dataset.index = i;
         row.children[0].textContent = i + 1;
     });
+}
+
+function updateQueueDuration() {
+    const total = queue.reduce((sum, song) => {
+        if (!song.duration || song.duration === "--:--") return sum;
+        const [m, s] = song.duration.split(":").map(Number);
+        return sum + m * 60 + s;
+    }, 0);
+    const el = document.getElementById("queue-duration");
+    if (el) el.textContent = total > 0 ? formatTime(total) : "";
 }
 
 function formatTime(seconds) {
