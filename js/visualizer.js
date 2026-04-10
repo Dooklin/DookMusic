@@ -90,10 +90,9 @@ let visIcon = document.getElementById("vis-toggle-icon");
 
 function hidevis() {
     vis.classList.toggle("hidden");
-    if(visIcon.src == "svgs/vis.svg"){
+    if(visIcon.src.includes("viz.svg")){
         visIcon.src = "svgs/vizNo.svg";
     } else {
-        visIcon.src = "svgs/vis.svg"
-    }
-        
+        visIcon.src = "svgs/viz.svg"
+    }  
 }
