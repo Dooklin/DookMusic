@@ -438,6 +438,7 @@ footer {
 }
 
 #mobile-settings-control {
+  width: 160px;
   position: fixed;
   top: 40px;
   left: calc(50% - 80px);
