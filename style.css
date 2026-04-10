@@ -3,6 +3,10 @@
   --orange-rgb: 179, 85, 23;
 }
 
+.hidden {
+  display: none;
+}
+
 html body {
   margin: 0;
   padding: 0;
@@ -92,6 +96,7 @@ main {
 
 .playlist-nohover {
   background: none !important;
+  background-color: none !important;
   box-shadow: none !important;
 }
 
@@ -381,6 +386,17 @@ footer {
 
 .main-conts {
   transition: transform 0.3s ease;
+}
+
+#vis-toggle {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+}
+
+#vis-toggle img {
+  width: 20px;
+  height: 20px;
 }
 
 @media (max-width: 1000px) {
