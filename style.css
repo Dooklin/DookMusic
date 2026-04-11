@@ -502,3 +502,187 @@ footer {
     width: 75vw;
   }
 }
+
+/* dropdown */
+
+#songs-menu {
+  position: relative;
+}
+
+#menuBtn {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 0.5em;
+  color: white;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 1.1em;
+  padding: 0 20px;
+  height: 100%;
+  cursor: pointer;
+  transition: background-color 0.1s ease-out;
+}
+
+#menuBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#songs-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75em;
+  overflow: hidden;
+  z-index: 100;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.dropdown-hidden {
+  display: none !important;
+}
+
+#songs-dropdown button {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: white;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 1em;
+  padding: 12px 20px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 0 !important;
+  transition: background-color 0.1s ease-out;
+}
+
+#newPlaylistBtn {
+  border-bottom: none !important;
+}
+
+#songs-dropdown button:last-child {
+  border-bottom: none;
+}
+
+#songs-dropdown button:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.danger-btn {
+  color: #e05a3a !important;
+}
+
+.danger-btn:hover {
+  background-color: rgba(224, 90, 58, 0.1) !important;
+}
+
+
+#playlist-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 10% 12px 10%;
+}
+
+.playlist-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5em;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: background-color 0.15s ease-out;
+  border: 1px solid transparent;
+}
+
+.playlist-tab:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.playlist-tab.active-tab {
+  background-color: rgba(179, 85, 23, 0.15);
+  border-color: var(--orange-hex);
+  color: white;
+}
+
+
+#playlist-dialog {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+#playlist-dialog-box {
+  background-color: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1em;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 280px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
+}
+
+#playlist-dialog-box span {
+  font-size: 1.4em;
+  color: white;
+}
+
+#playlist-name-input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5em;
+  color: white;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 1.1em;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.15s ease-out;
+}
+
+#playlist-name-input:focus {
+  border-color: var(--orange-hex);
+}
+
+#playlist-dialog-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+#playlist-dialog-btns button {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 0.5em;
+  color: white;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 1em;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background-color 0.1s ease-out;
+}
+
+#playlist-dialog-btns button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#playlist-dialog-confirm {
+  background-color: rgba(179, 85, 23, 0.3) !important;
+  border: 1px solid var(--orange-hex) !important;
+}
+
+#playlist-dialog-confirm:hover {
+  background-color: rgba(179, 85, 23, 0.5) !important;
+}

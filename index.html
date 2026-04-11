@@ -25,31 +25,42 @@
 
   <input type="range" id="mobile-settings-control" min="0" max="1" step="0.01" value="0.2">
 
+  <div id="playlist-dialog" style="display:none;">
+    <div id="playlist-dialog-box">
+      <span>Playlist Name</span>
+      <input type="text" id="playlist-name-input" placeholder="e.g. Graduation" maxlength="30">
+      <div id="playlist-dialog-btns">
+        <button id="playlist-dialog-cancel">Cancel</button>
+        <button id="playlist-dialog-confirm">Create</button>
+      </div>
+    </div>
+  </div>
+
   <main>
     <div class="main-conts">
       <div class="cont-heading">
-        <span>Your Songs</span>
-        <button id="scanBtn">Add New</button>
+        <span id="songs-heading">Your Songs</span>
+
+        <!-- Dropdown menu -->
+        <div id="songs-menu">
+          <button id="menuBtn">☰</button>
+          <div id="songs-dropdown" class="dropdown-hidden">
+            <button id="addAllBtn">Add All to Queue</button>
+            <button id="addMoreBtn">Add More Songs</button>
+            <button id="newPlaylistBtn">New Playlist</button>
+            <hr>
+            <button id="deletePlaylistBtn" class="danger-btn">Delete Playlist</button>
+            <button id="deleteAllBtn" class="danger-btn">Delete All</button>
+          </div>
+        </div>
+
       </div>
+
+      <!-- Playlist tabs -->
+      <div id="playlist-tabs"></div>
+
       <div id="song-cont">
-      <div class="playlist-cont">
-        <img src="default.png" alt="Song-Cover">
-
-        <div class="playlist-text">
-          <span><div class="placeholder"></div></span>
-          <span class="playlist-subtext"><div class="placeholder"></div></span>
-        </div>
-      </div>
-
-      <div class="playlist-cont">
-        <img src="default.png" alt="Song-Cover">
-
-        <div class="playlist-text">
-          <span><div class="placeholder"></div></span>
-          <span class="playlist-subtext"><div class="placeholder"></div></span>
-        </div>
-      </div>
-
+        
       </div>
 
       <div class="playlist-cont playlist-nohover">
@@ -59,8 +70,6 @@
         <!-- Placeholder Spacer-->
       </div>
     </div>
-
-
 
     <div class="main-conts middle" id="middle-cont">
       <div class="cont-heading">
@@ -76,62 +85,7 @@
             <th></th>
           </thead>
           <tbody>
-            <tr>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td class="row-actions">
-                <button data-action="up">▲</button>
-                <button data-action="remove">✖</button>
-                <button data-action="down">▼</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td class="row-actions">
-                <button data-action="up">▲</button>
-                <button data-action="remove">✖</button>
-                <button data-action="down">▼</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td class="row-actions">
-                <button data-action="up">▲</button>
-                <button data-action="remove">✖</button>
-                <button data-action="down">▼</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td class="row-actions">
-                <button data-action="up">▲</button>
-                <button data-action="remove">✖</button>
-                <button data-action="down">▼</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td><div class="placeholder"></div></td>
-              <td class="row-actions">
-                <button data-action="up">▲</button>
-                <button data-action="remove">✖</button>
-                <button data-action="down">▼</button>
-              </td>
-            </tr>
           </tbody>
-
         </table>
       </div>
 
@@ -143,10 +97,7 @@
       <div class="playlist-cont playlist-nohover mobile-place">
         <!-- Placeholder Spacer-->
       </div>
-
     </div>
-
-
 
     <div class="main-conts" id="tutorial">
       <div class="cont-heading">
@@ -154,22 +105,19 @@
       </div>
 
       <div class="songs-cont">
-        
         <span>Click on</span>
-
-        <button class="tutbutn" onclick="mock();">Add New</button>
-        
-        <span>to select your Songs from your file Explorer.</span>
+        <button class="tutbutn" onclick="mock();">☰</button>
+        <span>to open the menu and add your Songs.</span>
         <br>
         <span id="mockbox"></span>
         <br>
-        <span> Now you can place them in the Queue by clicking on them.</span>
+        <span>Now you can place them in the Queue by clicking on them.</span>
         <br>
         <br>
         <span>Click on them in the Queue to play the selected Song</span>
         <br>
         <br>
-        <span>To see the artists name (or anything else for that matter) on the left instead of the time,</span>
+        <span>To see the artists name on the left instead of the time,</span>
         <br>
         <span>name your files "Name - Artist" like in Duvet from Bôa -> "Duvet - Bôa"</span>
         <br>
@@ -178,6 +126,9 @@
         <br>
         <br>
         <span>If you'd like Covers, name them the exact same as the Song</span>
+        <br>
+        <br>
+        <span>Use playlists to organize songs into folders!</span>
         <br>
         <br>
         <span onclick="hide();">Hide this Panel by clicking here</span>
@@ -190,18 +141,15 @@
 
   <footer>
     <div class="bottom-panel" id="current-song">
-
       <div class="playlist-cont playlist-nohover" id="bottom-right">
         <img src="default.png" alt="Song-Cover" id="currentcover">
-
         <div class="playlist-text">
           <span><div class="placeholder"></div></span>
           <span class="playlist-subtext"><div class="placeholder"></div></span>
         </div>
       </div>
-
     </div>
-    
+
     <div class="bottom-panel bottom-middle" id="player-control">
       <div class="player-control-semicont">
           <button id="shuffleBtn">⇄</button>
@@ -227,6 +175,7 @@
   <canvas id="visualizer"></canvas>
 
   <input type="file" name="musicfiles" id="musicfiles" hidden multiple>
+  <input type="file" name="morefiles" id="morefiles" hidden multiple>
 
   <script src="js/hidetutorial.js"></script>
   <script src="js/main.js"></script>
