@@ -48,7 +48,7 @@ musicfiles.addEventListener("change", function (e) {
     scanBtn.textContent = "Add All";
 });
 
-function renderIndivSongs(file, songcont, covermap) {
+async function renderIndivSongs(file, songcont, covermap) {
     let playlistCont = document.createElement("div");
     playlistCont.classList.add("playlist-cont");
 
@@ -58,7 +58,7 @@ function renderIndivSongs(file, songcont, covermap) {
 
     let coverURL = "default.png";
     if (covermap[filename]) {
-        coverURL = URL.createObjectURL(covermap[filename]);
+        coverURL = await cropToSquare(covermap[filename]);
     }
 
     let artistPresent = filename.includes(" - ");
@@ -360,23 +360,31 @@ function formatTime(seconds) {
     return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
 
+function cropToSquare(imageFile) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        const url = URL.createObjectURL(imageFile);
+        img.onload = function () {
+            const size = Math.min(img.width, img.height);
+            const canvas = document.createElement("canvas");
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(
+                img,
+                (img.width - size) / 2,
+                (img.height - size) / 2,
+                size, size,
+                0, 0, size, size
+            );
+            URL.revokeObjectURL(url);
+            resolve(canvas.toDataURL("image/png"));
+        };
+        img.src = url;
+    });
+}
+
 window.addEventListener("beforeunload", function (event) {
     event.preventDefault();
     event.returnValue = "";
 });
-
-/*
-maybe todo
-
-- full queue and how long for full queue duration
-- volume slider, check for safari/chrome/firefox then chrome left 50%, firefox leave it with calc
-- if 3 line breaks at card then font smaller
-
-- if mp4 just get the audio?
-
-tests conclude
-
-Add all button
-Left rigtt swipe fix for apple
-Di i ecen need a numbering
-*/
