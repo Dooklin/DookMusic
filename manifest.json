@@ -1,0 +1,12 @@
+{
+  "name": "DookMusic",
+  "short_name": "DookMusic",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#b35517",
+  "icons": [
+    { "src": "default.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "default.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
