@@ -310,13 +310,13 @@ async function renderIndivSongs(file, songcont, covermap) {
     songcont.appendChild(playlistCont);
 
     const titleSpan = playlistCont.querySelector(".playlist-text span:first-child");
-        setTimeout(() => {
-        const card = playlistCont;
-        const textDiv = playlistCont.querySelector(".playlist-text");
-        if (textDiv.scrollHeight > card.clientHeight) {
-            titleSpan.style.fontSize = "1.3em";
+    const textDiv = playlistCont.querySelector(".playlist-text");
+
+    document.fonts.ready.then(() => {
+        if (textDiv.scrollHeight > playlistCont.clientHeight) {
+            titleSpan.style.fontSize = "1.1em";
         }
-    }, 200);
+    });
 
     const tempAudio = new Audio();
     tempAudio.src = URL.createObjectURL(file);
