@@ -9,7 +9,7 @@ let currentObjectURL = null;
 let isShuffled = false;
 let repeatOn = false;
 
-/* ===================== IndexedDB ===================== */
+/* db */
 
 let db;
 
@@ -59,7 +59,7 @@ async function savePlaylistsToDB(playlists) {
     return new Promise((res, rej) => { tx.oncomplete = res; tx.onerror = rej; });
 }
 
-/* ===================== Playlist State ===================== */
+/* playlist */
 
 let playlists = [];
 let activePlaylistId = "default";
@@ -121,7 +121,7 @@ async function deletePlaylist(id) {
     await switchPlaylist(activePlaylistId);
 }
 
-/* ===================== Load from IDB ===================== */
+/* load shit */
 
 async function loadFromIDB() {
     const savedSongs = await getAllFromStore("songs");
@@ -143,8 +143,6 @@ async function loadFromIDB() {
     });
 }
 
-/* ===================== Init ===================== */
-
 openDB().then(async database => {
     db = database;
 
@@ -164,7 +162,7 @@ openDB().then(async database => {
     loadFromIDB();
 });
 
-/* ===================== Dropdown Menu ===================== */
+/* dropdown */
 
 const menuBtn = document.getElementById("menuBtn");
 const dropdown = document.getElementById("songs-dropdown");
@@ -244,7 +242,7 @@ document.getElementById("deleteAllBtn").addEventListener("click", async function
     updateQueueDuration();
 });
 
-/* ===================== Playlist Dialog ===================== */
+/* new playlist */
 
 function showPlaylistDialog() {
     const dialog = document.getElementById("playlist-dialog");
@@ -273,7 +271,7 @@ document.getElementById("playlist-name-input").addEventListener("keydown", funct
     if (e.key === "Escape") document.getElementById("playlist-dialog-cancel").click();
 });
 
-/* ===================== Render Songs ===================== */
+/* render songs */
 
 async function renderIndivSongs(file, songcont, covermap) {
     let playlistCont = document.createElement("div");
@@ -329,7 +327,7 @@ async function renderIndivSongs(file, songcont, covermap) {
     });
 }
 
-/* ===================== Queue ===================== */
+/* queue */
 
 let queuecont = document.getElementById("queue-cont");
 let tbody = document.querySelector("tbody");
@@ -382,7 +380,7 @@ function playByIndex(index) {
     playimg.src = "svgs/pause.svg";
 }
 
-/* ===================== Volume ===================== */
+/* volume */
 
 let volumeSlider = document.getElementById("volumeSlider");
 audioPlayer.volume = volumeSlider.value;
@@ -392,7 +390,7 @@ let volumeSliderMob = document.getElementById("mobile-settings-control");
 audioPlayer.volume = volumeSliderMob.value;
 volumeSliderMob.addEventListener("input", function () { audioPlayer.volume = this.value; });
 
-/* ===================== Play/Pause ===================== */
+/* play/pause */
 
 let playbtn = document.getElementById("playBtn");
 let playimg = document.getElementById("playimg");
@@ -407,7 +405,7 @@ playbtn.addEventListener("click", function () {
     }
 });
 
-/* ===================== Prev / Next ===================== */
+/* prev/next */
 
 let nextBtn = document.getElementById("nextBtn");
 let prevBtn = document.getElementById("prevBtn");
@@ -432,7 +430,7 @@ function playNext() {
     }
 }
 
-/* ===================== Progress Bar ===================== */
+/* progress bar */
 
 let progressBar = document.getElementById("progress-bar");
 let progressFill = document.getElementById("progress-bar-progress");
@@ -450,7 +448,7 @@ progressBar.addEventListener("click", function (e) {
     audioPlayer.currentTime = ((e.clientX - rect.left) / rect.width) * audioPlayer.duration;
 });
 
-/* ===================== Spacebar ===================== */
+/* spacebar pause/play */
 
 document.addEventListener("keydown", function (e) {
     if (e.code === "Space" && e.target === document.body) {
@@ -465,7 +463,7 @@ document.addEventListener("keydown", function (e) {
     }
 });
 
-/* ===================== Shuffle / Repeat ===================== */
+/* shuffle/repeat */
 
 let shuffleBtn = document.getElementById("shuffleBtn");
 shuffleBtn.addEventListener("click", function () {
@@ -479,7 +477,7 @@ repeatBtn.addEventListener("click", function () {
     repeatBtn.classList.toggle("active", repeatOn);
 });
 
-/* ===================== Queue Row Actions ===================== */
+/* queue row actions */
 
 tbody.addEventListener("click", function (e) {
     const btn = e.target.closest("button[data-action]");
@@ -548,7 +546,7 @@ function updateQueueDuration() {
     if (el) el.textContent = total > 0 ? formatTime(total) : "";
 }
 
-/* ===================== Helpers ===================== */
+/* random bs */
 
 function formatTime(seconds) {
     let mins = Math.floor(seconds / 60);
