@@ -580,8 +580,9 @@ function cropToSquare(imageFile) {
         img.src = url;
     });
 }
-
+/*
 window.addEventListener("beforeunload", function (event) {
     event.preventDefault();
     event.returnValue = "";
 });
+*/
