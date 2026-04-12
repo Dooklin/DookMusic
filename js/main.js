@@ -313,7 +313,6 @@ async function renderIndivSongs(file, songcont, covermap) {
         setTimeout(() => {
         const card = playlistCont;
         const textDiv = playlistCont.querySelector(".playlist-text");
-        console.log("textDiv scrollHeight:", textDiv.scrollHeight, "card clientHeight:", card.clientHeight);
         if (textDiv.scrollHeight > card.clientHeight) {
             titleSpan.style.fontSize = "1.3em";
         }
