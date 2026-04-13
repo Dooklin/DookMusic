@@ -93,12 +93,15 @@ async function switchPlaylist(id) {
     const allCovers = await getAllFromStore("covers");
 
     const covermap = {};
-    allCovers.filter(c => c.playlistId === id).forEach(entry => {
+    const songsToShow = id === "default" ? allSongs : allSongs.filter(s => s.playlistId === id);
+    const coversToShow = id === "default" ? allCovers : allCovers.filter(c => c.playlistId === id);
+
+    coversToShow.forEach(entry => {
         const cleanname = entry.file.name.replace(/\.[^/.]+$/, "");
         covermap[cleanname] = entry.file;
     });
 
-    allSongs.filter(s => s.playlistId === id).forEach(entry => {
+    songsToShow.forEach(entry => {
         renderIndivSongs(entry.file, songcont, covermap);
     });
 
@@ -133,12 +136,15 @@ async function loadFromIDB() {
     songcont.innerHTML = "";
 
     const covermap = {};
-    savedCovers.filter(c => c.playlistId === activePlaylistId).forEach(entry => {
+    const songsToShow = id === "default" ? allSongs : allSongs.filter(s => s.playlistId === id);
+    const coversToShow = id === "default" ? allCovers : allCovers.filter(c => c.playlistId === id);
+
+    coversToShow.forEach(entry => {
         const cleanname = entry.file.name.replace(/\.[^/.]+$/, "");
         covermap[cleanname] = entry.file;
     });
 
-    savedSongs.filter(s => s.playlistId === activePlaylistId).forEach(entry => {
+    songsToShow.forEach(entry => {
         renderIndivSongs(entry.file, songcont, covermap);
     });
 }
@@ -590,4 +596,9 @@ window.addEventListener("beforeunload", function (event) {
     event.preventDefault();
     event.returnValue = "";
 });
+*/
+
+/*
+todo
+search
 */
