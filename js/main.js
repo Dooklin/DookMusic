@@ -385,6 +385,7 @@ function playByIndex(index) {
     document.querySelector("#bottom-right .playlist-text span:first-child").textContent = song.title;
     document.querySelector("#bottom-right .playlist-text span:last-child").textContent = song.artist || song.duration;
     document.querySelector("#player-control span:nth-child(3)").textContent = song.duration;
+    document.title = song.title + " - DookMusic";
 
     playimg.src = "svgs/pause.svg";
 }
@@ -408,9 +409,11 @@ playbtn.addEventListener("click", function () {
     if (audioPlayer.paused) {
         audioPlayer.play();
         playimg.src = "svgs/pause.svg";
+        document.title = queue[currentIndex]?.title + " - DookMusic";
     } else {
         audioPlayer.pause();
         playimg.src = "svgs/play.svg";
+        document.title = "DookMusic";
     }
 });
 
@@ -465,9 +468,11 @@ document.addEventListener("keydown", function (e) {
         if (audioPlayer.paused) {
             audioPlayer.play();
             playimg.src = "svgs/pause.svg";
+            document.title = queue[currentIndex]?.title + " - DookMusic";
         } else {
             audioPlayer.pause();
             playimg.src = "svgs/play.svg";
+            document.title = "DookMusic";
         }
     }
 });
