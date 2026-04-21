@@ -128,25 +128,8 @@ async function deletePlaylist(id) {
 
 async function loadFromIDB() {
     const savedSongs = await getAllFromStore("songs");
-    const savedCovers = await getAllFromStore("covers");
-
     if (savedSongs.length === 0) return;
-
-    const songcont = document.getElementById("song-cont");
-    songcont.innerHTML = "";
-
-    const covermap = {};
-    const songsToShow = id === "default" ? allSongs : allSongs.filter(s => s.playlistId === id);
-    const coversToShow = id === "default" ? allCovers : allCovers.filter(c => c.playlistId === id);
-
-    coversToShow.forEach(entry => {
-        const cleanname = entry.file.name.replace(/\.[^/.]+$/, "");
-        covermap[cleanname] = entry.file;
-    });
-
-    songsToShow.forEach(entry => {
-        renderIndivSongs(entry.file, songcont, covermap);
-    });
+    await switchPlaylist(activePlaylistId);
 }
 
 openDB().then(async database => {
@@ -394,6 +377,33 @@ function playByIndex(index) {
     document.title = song.title + " - DookMusic";
 
     playimg.src = "svgs/pause.svg";
+    
+    if ("mediaSession" in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: song.title,
+            artist: song.artist || "",
+            artwork: [{ src: song.coverURL, sizes: "512x512", type: "image/png" }]
+        });
+ 
+        navigator.mediaSession.setActionHandler("play", () => {
+            audioPlayer.play();
+            playimg.src = "svgs/pause.svg";
+            document.title = queue[currentIndex]?.title + " - DookMusic";
+        });
+        navigator.mediaSession.setActionHandler("pause", () => {
+            audioPlayer.pause();
+            playimg.src = "svgs/play.svg";
+            document.title = "DookMusic";
+        });
+        navigator.mediaSession.setActionHandler("nexttrack", () => playNext());
+        navigator.mediaSession.setActionHandler("previoustrack", () => {
+            if (audioPlayer.currentTime > 3) {
+                audioPlayer.currentTime = 0;
+            } else {
+                playByIndex(currentIndex - 1);
+            }
+        });
+    }
 }
 
 /* volume */
@@ -438,7 +448,15 @@ audioPlayer.addEventListener("ended", () => playNext());
 
 function playNext() {
     if (isShuffled) {
-        playByIndex(Math.floor(Math.random() * queue.length));
+        if (queue.length === 1) {
+            playByIndex(0);
+            return;
+        }
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * queue.length);
+        } while (randomIndex === currentIndex);
+        playByIndex(randomIndex);
         return;
     }
     if (repeatOn && currentIndex === queue.length - 1) {
@@ -591,6 +609,17 @@ function cropToSquare(imageFile) {
         img.src = url;
     });
 }
+
+/* keep the notif */
+audioPlayer.addEventListener("pause", () => {
+    if ("mediaSession" in navigator)
+        navigator.mediaSession.playbackState = "paused";
+});
+audioPlayer.addEventListener("play", () => {
+    if ("mediaSession" in navigator)
+        navigator.mediaSession.playbackState = "playing";
+});
+
 /*
 window.addEventListener("beforeunload", function (event) {
     event.preventDefault();
