@@ -82,7 +82,11 @@ function renderPlaylistTabs() {
     });
 }
 
+let currentSwitchId = 0;
+
 async function switchPlaylist(id) {
+    const switchId = ++currentSwitchId;
+
     activePlaylistId = id;
     renderPlaylistTabs();
 
@@ -91,6 +95,8 @@ async function switchPlaylist(id) {
 
     const allSongs = await getAllFromStore("songs");
     const allCovers = await getAllFromStore("covers");
+
+    if (switchId !== currentSwitchId) return;
 
     const covermap = {};
     const songsToShow = id === "default" ? allSongs : allSongs.filter(s => s.playlistId === id);
