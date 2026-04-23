@@ -366,7 +366,10 @@ function playByIndex(index) {
     currentObjectURL = URL.createObjectURL(song.file);
 
     audioPlayer.src = currentObjectURL;
-    audioPlayer.play();
+    audioPlayer.play().then(() => {
+        if ("mediaSession" in navigator)
+            navigator.mediaSession.playbackState = "playing";
+    });
 
     updateNowPlayingHighlight();
 
@@ -375,16 +378,15 @@ function playByIndex(index) {
     document.querySelector("#bottom-right .playlist-text span:last-child").textContent = song.artist || song.duration;
     document.querySelector("#player-control span:nth-child(3)").textContent = song.duration;
     document.title = song.title + " - DookMusic";
-
     playimg.src = "svgs/pause.svg";
-    
+
     if ("mediaSession" in navigator) {
         navigator.mediaSession.metadata = new MediaMetadata({
             title: song.title,
             artist: song.artist || "",
             artwork: [{ src: song.coverURL, sizes: "512x512", type: "image/png" }]
         });
- 
+
         navigator.mediaSession.setActionHandler("play", () => {
             audioPlayer.play();
             playimg.src = "svgs/pause.svg";
@@ -403,6 +405,14 @@ function playByIndex(index) {
                 playByIndex(currentIndex - 1);
             }
         });
+        navigator.mediaSession.setActionHandler("seekbackward", () => {
+            if (audioPlayer.currentTime > 3) {
+                audioPlayer.currentTime = 0;
+            } else {
+                playByIndex(currentIndex - 1);
+            }
+        });
+        navigator.mediaSession.setActionHandler("seekforward", () => playNext());
     }
 }
 
