@@ -124,7 +124,7 @@ async function deletePlaylist(id) {
     await switchPlaylist(activePlaylistId);
 }
 
-/* load shit */
+/* load */
 
 async function loadFromIDB() {
     const savedSongs = await getAllFromStore("songs");
@@ -193,6 +193,55 @@ morefiles.addEventListener("change", async function (e) {
     audioFiles.forEach(file => renderIndivSongs(file, songcont, covermap));
 
     morefiles.value = "";
+});
+
+/* add folder */
+
+const folderfiles = document.getElementById("folderfiles");
+
+document.getElementById("addFolderBtn").addEventListener("click", function () {
+    dropdown.classList.add("dropdown-hidden");
+    folderfiles.click();
+});
+
+folderfiles.addEventListener("change", async function (e) {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    // group files by subfolder, or root folder if no subfolders
+    const groups = {};
+    files.forEach(f => {
+        const parts = f.webkitRelativePath.split("/");
+        const groupName = parts.length > 2 ? parts[1] : parts[0];
+        if (!groups[groupName]) groups[groupName] = [];
+        groups[groupName].push(f);
+    });
+
+    for (const [groupName, groupFiles] of Object.entries(groups)) {
+        const audioFiles = groupFiles.filter(f => f.type.startsWith("audio/"));
+        const imageFiles = groupFiles.filter(f => f.type.startsWith("image/"));
+        if (audioFiles.length === 0) continue;
+
+        let pl = playlists.find(p => p.name === groupName);
+        if (!pl) {
+            const id = "pl_" + Date.now() + "_" + groupName;
+            pl = { id, name: groupName };
+            playlists.push(pl);
+        }
+
+        const covermap = {};
+        imageFiles.forEach(img => {
+            const cleanname = img.name.replace(/\.[^/.]+$/, "");
+            covermap[cleanname] = img;
+        });
+
+        await saveFilesToIDB(audioFiles, imageFiles, pl.id);
+    }
+
+    await savePlaylistsToDB(playlists);
+    renderPlaylistTabs();
+    await switchPlaylist(activePlaylistId);
+    folderfiles.value = "";
 });
 
 document.getElementById("newPlaylistBtn").addEventListener("click", function () {
@@ -384,7 +433,7 @@ function playByIndex(index) {
         navigator.mediaSession.metadata = new MediaMetadata({
             title: song.title,
             artist: song.artist || "",
-            artwork: [{ src: song.coverURL, sizes: "512x512", type: "image/png" }]
+            artwork: [{ src: "default.png", sizes: "512x512", type: "image/png" }]
         });
 
         navigator.mediaSession.setActionHandler("play", () => {
@@ -594,7 +643,7 @@ function updateQueueDuration() {
     if (el) el.textContent = total > 0 ? formatTime(total) : "";
 }
 
-/* random bs */
+/* helpers */
 
 function formatTime(seconds) {
     let mins = Math.floor(seconds / 60);
@@ -629,13 +678,6 @@ audioPlayer.addEventListener("play", () => {
     if ("mediaSession" in navigator)
         navigator.mediaSession.playbackState = "playing";
 });
-
-/*
-window.addEventListener("beforeunload", function (event) {
-    event.preventDefault();
-    event.returnValue = "";
-});
-*/
 
 /*
 todo
