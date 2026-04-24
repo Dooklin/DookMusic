@@ -439,7 +439,7 @@ function playByIndex(index) {
         navigator.mediaSession.metadata = new MediaMetadata({
             title: song.title,
             artist: song.artist || "",
-            artwork: [{ src: "default.png", sizes: "512x512", type: "image/png" }]
+            artwork: [{ src: song.coverURL, sizes: "512x512", type: "image/png" }]
         });
 
         navigator.mediaSession.setActionHandler("play", () => {
